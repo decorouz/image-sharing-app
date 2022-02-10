@@ -16,7 +16,7 @@ def dashboard(request):
 
 def register(request):
     if request.user.is_authenticated:
-        return redirect("logout")
+        return redirect("dashboard")
 
     if request.method == "POST":
         user_form = UserRegistrationForm(request.POST)
@@ -49,8 +49,9 @@ def edit(request):
         if user_form.is_valid() and profile_form.is_valid():
             user_form.save()
             profile_form.save()
-            messages.success(request, 'Profile updated '
-                             'successfully')
+            messages.success(request, 'Profile updated successfully')
+            return redirect("dashboard")
+
         else:
             messages.error(request, 'Error updating your profile')
     else:

@@ -29,14 +29,13 @@ SECRET_KEY = 'django-insecure-w1=$9^l03yj6q8yvq4jsw@y3%m34#q=h&moo4v%b^s71^_9mjg
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["addegbenga.com", "127.0.0.1", ]
 
 
 # Application definition
 
 INSTALLED_APPS = [
     'account.apps.AccountConfig',
-
 
 
     'django.contrib.admin',
@@ -46,8 +45,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-
+    'social_django'
 ]
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -74,6 +74,11 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+
+                # Social authentication
+                'social_django.context_processors.backends',
+                'social_django.context_processors.login_redirect',
+
             ],
         },
     },
@@ -95,9 +100,22 @@ DATABASES = {
 # Authentication backend
 
 AUTHENTICATION_BACKENDS = [
+    'social_core.backends.google.GoogleOAuth2',
+    'social_core.backends.twitter.TwitterOAuth',
+
+
     'django.contrib.auth.backends.ModelBackend',
     'account.authentication.EmailAuthBackend',
 ]
+
+# social auth configs for twitter
+SOCIAL_AUTH_TWITTER_OAUTH_KEY = 'aHCQtKMfi5hXOBd7xtkkpM58X'
+SOCIAL_AUTH_TWITTER_OAUTH_SECRET = '3jVkduBVNbrSYpxbl0Zmd7hKNEmZV4HxsfV5v45nnMrBOfZvJB'
+
+# Google client ID and secret can always be accessed from Credentials in APIs & Services
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = "371881445321-mf3p8rk5rfjd2fuf8gf88qh6utmaa14p.apps.googleusercontent.com"
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = "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"
+
 
 # Password validation
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators
