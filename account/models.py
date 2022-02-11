@@ -9,6 +9,7 @@ class Profile(models.Model):
     date_of_birth = models.DateField(blank=True, null=True)
     photo = models.ImageField(upload_to='users/%Y/%m/%d/',
                               blank=True)
+    email_confirmed = models.BooleanField(default=False)
 
     def __str__(self) -> str:
         return f"Profile for user {self.user.username}"
