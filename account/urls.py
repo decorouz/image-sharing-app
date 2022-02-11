@@ -15,6 +15,12 @@ urlpatterns = [
     path("register/", views.register, name="register"),
     path("edit/", views.edit, name="edit"),
 
+
+    path('account_activation_sent/', views.account_activation_sent,
+         name='account_activation_sent'),
+    path('activate/<uidb64>/<token>/',
+         views.activate, name='activate'),
+
     # change password urls
     path("password_change/", auth_views.PasswordChangeView.as_view(),
          name="password_change"),
