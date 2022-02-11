@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 
 from pathlib import Path
 import os
+from decouple import config
 
 # Extending user models
 
@@ -97,16 +98,6 @@ DATABASES = {
     }
 }
 
-# Authentication backend
-
-AUTHENTICATION_BACKENDS = [
-    'social_core.backends.google.GoogleOAuth2',
-    'social_core.backends.twitter.TwitterOAuth',
-
-
-    'django.contrib.auth.backends.ModelBackend',
-    'account.authentication.EmailAuthBackend',
-]
 
 # social auth configs for twitter
 SOCIAL_AUTH_TWITTER_OAUTH_KEY = 'aHCQtKMfi5hXOBd7xtkkpM58X'
@@ -180,4 +171,21 @@ LOGIN_URL = 'login'
 LOGOUT_URL = 'logout'
 
 
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+# MailGun SMTP backend
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+EMAIL_USE_TLS = True
+EMAIL_PORT = 587
+EMAIL_HOST = 'smtp.mailgun.org'
+EMAIL_HOST_USER = config('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
+
+# Authentication backend
+
+AUTHENTICATION_BACKENDS = [
+    'social_core.backends.google.GoogleOAuth2',
+    'social_core.backends.twitter.TwitterOAuth',
+
+
+    'django.contrib.auth.backends.ModelBackend',
+    'account.authentication.EmailAuthBackend',
+]
