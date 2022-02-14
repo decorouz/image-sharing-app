@@ -18,3 +18,5 @@ An image can only be to one user
 many-to-many Relationship:
 One user can like multiple images.
 An image can be liked by multiple users
+
+When you need to repeat a queryset in your template, use the {% with %} template tag to avoid additional database queries. Ensure there is no space between the equal sign.
