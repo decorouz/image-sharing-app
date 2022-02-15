@@ -20,3 +20,5 @@ One user can like multiple images.
 An image can be liked by multiple users
 
 When you need to repeat a queryset in your template, use the {% with %} template tag to avoid additional database queries. Ensure there is no space between the equal sign.
+
+Features such as like should be performed in an asynchronous manner. This was the page is not reloaded.
