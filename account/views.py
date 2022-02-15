@@ -1,6 +1,8 @@
 
 from django.contrib.auth import login
 from django.contrib.sites.shortcuts import get_current_site
+from django.shortcuts import get_object_or_404
+from django.contrib.auth.models import User
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.core.mail import send_mail
@@ -21,6 +23,26 @@ from django.contrib.auth.models import User
 @login_required
 def dashboard(request):
     return render(request, "account/dashboard.html", {"section": dashboard})
+
+
+@login_required
+def user_list(request):
+    # Add pagination
+    users = User.objects.filter(is_active=True)
+    return render(request,
+                  "account/user/list.html",
+                  {"section": "people",
+                   "users": users})
+
+
+@login_required
+def user_detail(request, username):
+    user = get_object_or_404(User,
+                             username=username,
+                             is_active=True)
+    return render(request,
+                  "account/user/detail.html",
+                  {"section": "poeple", "user": user})
 
 
 def register(request):

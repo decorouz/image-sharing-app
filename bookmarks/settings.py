@@ -13,9 +13,15 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 from pathlib import Path
 import os
 from decouple import config
+from django.urls import reverse_lazy
 
 # Extending user models
 
+# Another way to specify the URL for a model is byadding the ABSOLUTE_URL_OVERRIDES setting to your project
+
+ABSOLUTE_URL_OVERRIDES = {
+    "auth.user": lambda u: reverse_lazy("user_detail", args=[u.username])
+}
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent

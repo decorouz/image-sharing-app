@@ -15,7 +15,7 @@ urlpatterns = [
     path("register/", views.register, name="register"),
     path("edit/", views.edit, name="edit"),
 
-
+    # account activation auth
     path('account_activation_sent/', views.account_activation_sent,
          name='account_activation_sent'),
     path('activate/<uidb64>/<token>/',
@@ -42,7 +42,12 @@ urlpatterns = [
          name='password_reset_complete'),
 
     # Account views
-    path("", views.dashboard, name="dashboard")
+    path("", views.dashboard, name="dashboard"),
+
+    # User list and details url
+    path("users/", views.user_list, name="user_list"),
+    path("users/<username>/", views.user_detail, name="user_detail"),
+
 
 
 

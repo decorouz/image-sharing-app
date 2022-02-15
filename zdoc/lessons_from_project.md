@@ -32,3 +32,13 @@ pagination to the image list view.
 In the next chapter, you will learn how to build a follow system and an activity
 stream. You will work with generic relations, signals, and denormalization. You
 will also learn how to use Redis with Django.
+
+you will learn how to build a follow system and create a user activity
+stream. You will also discover how Django signals work and integrate Redis's fast
+I/O storage into your project to store item views.
+
+=========
+
+## MANY-TO-MANY RELATIONSHIP WITH AN INTERMEDIARY MODEL.
+
+Sometimes you may need to create an intermediary model you want to store additional information for the relationship, for example, the date the relationship was created, or the field that describes the nature of the relationship.
