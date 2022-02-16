@@ -42,3 +42,7 @@ I/O storage into your project to store item views.
 ## MANY-TO-MANY RELATIONSHIP WITH AN INTERMEDIARY MODEL.
 
 Sometimes you may need to create an intermediary model you want to store additional information for the relationship, for example, the date the relationship was created, or the field that describes the nature of the relationship.
+
+## Using the contenttypes framework
+
+Django includes a contenttypes framework located at django.contrib.contenttypes. This application can track all models installed in your project and provides a generic interface to interact with your models.
