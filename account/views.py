@@ -15,9 +15,9 @@ from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.http import JsonResponse
 from django.views.decorators.http import require_POST
 from django.contrib.auth.models import User
+
+from actions.models import Action
 from actions.utils import create_action
-
-
 from bookmarks import settings
 from common.decorators import ajax_required
 
@@ -52,7 +52,17 @@ def user_follow(request):
 # Create your views here.
 @login_required
 def dashboard(request):
-    return render(request, "account/dashboard.html", {"section": dashboard})
+    # Display all actions by default
+    actions = Action.objects.exclude(user=request.user)
+    following_ids = request.user.following.values_list("id",
+                                                       flat=True)
+    if following_ids:
+        # If user is following others, retrieve only their actions
+        actions = actions.filter(user_id__in=following_ids)
+    actions = actions[:10]
+    return render(request,
+                  "account/dashboard.html",
+                  {"section": dashboard, "actions": actions})
 
 
 @login_required
