@@ -1,7 +1,12 @@
-from common.decorators import ajax_required
 from .models import Image
 from .forms import ImageCreateForm
 from actions.utils import create_action
+from common.decorators import ajax_required
+
+import redis
+
+
+from django.conf import settings
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404
@@ -13,8 +18,13 @@ from django.core.paginator import Paginator, EmptyPage,\
     PageNotAnInteger
 
 
-# Create your views here.
+# Connect to redis
+r = redis.Redis(host=settings.REDIS_HOST,
+                port=settings.REDIS_PORT,
+                db=settings.REDIS_DB)
 
+
+# Create your views here.
 
 @login_required
 def image_create(request):
@@ -45,10 +55,13 @@ def image_create(request):
 
 def image_detail(request, id, slug):
     image = get_object_or_404(Image, id=id, slug=slug)
+    # increment total image views by 1
+    total_views = r.incr(f"image:{image.id}:views")
     return render(request,
                   "images/image/detail.html",
                   {"section": "images",
-                   "image": image})
+                   "image": image,
+                   "total_views": total_views})
 
 
 # A view for users to like/unlike images
