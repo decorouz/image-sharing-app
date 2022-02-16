@@ -182,6 +182,11 @@ LOGIN_REDIRECT_URL = 'dashboard'
 LOGIN_URL = 'login'
 LOGOUT_URL = 'logout'
 
+# Redis
+REDIS_HOST = "localhost"
+REDIS_PORT = 6379
+REDIS_DB = 0
+
 
 # MailGun SMTP backend
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
