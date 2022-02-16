@@ -10,13 +10,42 @@ from django.shortcuts import render, redirect
 from django.template.loader import render_to_string
 from django.utils.encoding import force_bytes, force_str
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
+
+
+from django.http import JsonResponse
+from django.views.decorators.http import require_POST
+
 from bookmarks import settings
+
+from common.decorators import ajax_required
 
 from .forms import UserRegistrationForm, UserEditForm, ProfileEditForm
 from .tokens import account_activation_token
 
 from .models import Profile
+from .models import Contact
 from django.contrib.auth.models import User
+
+
+@ajax_required
+@require_POST
+@login_required
+def user_follow(request):
+    user_id = request.POST.get("id")
+    action = request.POST.get("action")
+    if user_id and action:
+        try:
+            user = User.objects.get(id=user_id)
+            if action == "follow":
+                Contact.objects.get_or_create(
+                    user_from=request.user, user_to=user)
+            else:
+                Contact.objects.filter(
+                    user_from=request.user, user_to=user).delete()
+            return JsonResponse({"status": "ok"})
+        except User.DoesNotExist:
+            return JsonResponse({"status": "error"})
+    return JsonResponse({"status": "error"})
 
 
 # Create your views here.
