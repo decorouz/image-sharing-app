@@ -53,3 +53,9 @@ Django includes a contenttypes framework located at django.contrib.contenttypes.
 • A user likes an image
 • A user creates an account
 • A user starts following another user
+
+## Optimizing QuerySets that involve related objects
+
+Every time you retrieve an Action object, you will usually access its related User object and the user's related Profile object. The Django ORM offers a simple way to retrieve related objects at the same time, thereby avoiding additional queries to the database. using `select_related()`. This however doesnt work for retrieving related objects in many-to-many or many-to-one relationship.
+
+### `prefetched_related()`
