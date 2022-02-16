@@ -14,17 +14,17 @@ from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 
 from django.http import JsonResponse
 from django.views.decorators.http import require_POST
+from django.contrib.auth.models import User
+from actions.utils import create_action
+
 
 from bookmarks import settings
-
 from common.decorators import ajax_required
+
 
 from .forms import UserRegistrationForm, UserEditForm, ProfileEditForm
 from .tokens import account_activation_token
-
-from .models import Profile
 from .models import Contact
-from django.contrib.auth.models import User
 
 
 @ajax_required
@@ -39,6 +39,7 @@ def user_follow(request):
             if action == "follow":
                 Contact.objects.get_or_create(
                     user_from=request.user, user_to=user)
+                create_action(request.user, "is following", user)
             else:
                 Contact.objects.filter(
                     user_from=request.user, user_to=user).delete()

@@ -46,3 +46,10 @@ Sometimes you may need to create an intermediary model you want to store additio
 ## Using the contenttypes framework
 
 Django includes a contenttypes framework located at django.contrib.contenttypes. This application can track all models installed in your project and provides a generic interface to interact with your models.
+
+### Adding user actions to the activity stream
+
+• A user bookmarks an image
+• A user likes an image
+• A user creates an account
+• A user starts following another user
