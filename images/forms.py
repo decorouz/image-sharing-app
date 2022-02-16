@@ -4,6 +4,7 @@ from django.core.files.base import ContentFile
 from django.utils.text import slugify
 
 from urllib import request
+from urllib.request import Request, urlopen
 
 from .models import Image
 
@@ -32,7 +33,6 @@ class ImageCreateForm(forms.ModelForm):
              force_update=False,
              commit=True):
         image = super().save(commit=False)
-        print("Images====", image.title)
 
         image_url = self.cleaned_data["url"]
         name = slugify(image.title)
@@ -40,10 +40,10 @@ class ImageCreateForm(forms.ModelForm):
         image_name = f"{name}.{extension}"
 
         # download image from the given URL
-
-        response = request.urlopen(image_url)
+        # response = request.urlopen(image_url)
+        req = Request(image_url, headers={'User-Agent': 'Mozilla/5.0'})
         image.image.save(image_name,
-                         ContentFile(response.read()),
+                         ContentFile(urlopen(req).read()),
                          save=False)
         if commit:
             image.save()
