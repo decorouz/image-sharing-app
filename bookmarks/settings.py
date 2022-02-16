@@ -31,7 +31,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-w1=$9^l03yj6q8yvq4jsw@y3%m34#q=h&moo4v%b^s71^_9mjg'
+SECRET_KEY = config("DJANGO_SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -112,12 +112,12 @@ DATABASES = {
 
 
 # social auth configs for twitter
-SOCIAL_AUTH_TWITTER_OAUTH_KEY = 'aHCQtKMfi5hXOBd7xtkkpM58X'
-SOCIAL_AUTH_TWITTER_OAUTH_SECRET = '3jVkduBVNbrSYpxbl0Zmd7hKNEmZV4HxsfV5v45nnMrBOfZvJB'
+SOCIAL_AUTH_TWITTER_OAUTH_KEY = config("SOCIAL_AUTH_TWITTER_OAUTH_KEY")
+SOCIAL_AUTH_TWITTER_OAUTH_SECRET = config("SOCIAL_AUTH_TWITTER_OAUTH_SECRET")
 
 # Google client ID and secret can always be accessed from Credentials in APIs & Services
-SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = "371881445321-mf3p8rk5rfjd2fuf8gf88qh6utmaa14p.apps.googleusercontent.com"
-SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = "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"
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = config("SOCIAL_AUTH_GOOGLE_OAUTH2_KEY")
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = config("SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET")
 
 
 # Password validation
