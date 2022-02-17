@@ -1,5 +1,5 @@
-Prevent user from following themselves.
-Default image for users
+~~Prevent user from following themselves~~.
+<strike>Default image for users</strike>
 Add pagination to the dashboard
 improve the styling
 Add home like to Bookmark logo
