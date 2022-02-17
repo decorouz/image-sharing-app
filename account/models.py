@@ -1,3 +1,4 @@
+from email.policy import default
 from tkinter import CASCADE
 from django.db import models
 from django.conf import settings
@@ -14,6 +15,7 @@ class Profile(models.Model):
 
     def __str__(self) -> str:
         return f"Profile for user {self.user.username}"
+
 # Create your models here.
 
 

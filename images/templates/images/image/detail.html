@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load static %}
 
 {% block title %}{{ image.title }}{% endblock %}
 
@@ -30,7 +31,11 @@
 <div class="image-likes">
     {% for user in users_like %}
     <div>
+        {% if user.profile.photo %}
         <img src="{{ user.profile.photo.url }}">
+        {% else %}
+        <img src="{% static 'images/user-default.png' %}">
+        {% endif %}
         <p>{{ user.first_name }}</p>
     </div>
     {% empty %}
